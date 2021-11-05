@@ -9,5 +9,6 @@
   "icons": {
     "128": "logo.png"
   },
-  "permissions": ["activeTab"]
+  "permissions": ["activeTab"],
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://kit.fontawesome.com/11f67e7c0a.js https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js; object-src 'self'"
 }
