@@ -45,11 +45,19 @@ window.onload = function() {
   }
 }
 
+function isItemAvailable(key) {
+  return localStorage.getItem(key);
+}
+
 addButton.addEventListener('click', () => {
   let saveCount = 0;
   for(let i=0; i<openTabList.length; i++) {
     const checkbox = document.getElementById(`checkbox-${i}`);
     if(checkbox.checked) {
+      if(isItemAvailable(openTabList[i].title)) {
+        checkbox.checked = false;
+        continue;
+      }
       localStorage.setItem(openTabList[i].title, openTabList[i].url);
 
       savedTabsDiv.innerHTML += `<div class="checkbox parent-checkbox">
