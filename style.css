@@ -1,6 +1,35 @@
 body {
   width: 700px;
-  height: 500px;
+  max-height: 600px;
   overflow: scroll;
   padding: 2rem;
+}
+
+.add-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.checkbox-list-container {
+  width: 95%;
+  max-height: 400px;
+  margin: 1rem auto;
+  padding: 1rem;
+  border: 1px solid rgba(41, 47, 61, 0.25);
+  border-radius: 5px;
+  overflow-y: scroll;
+}
+
+.checkbox {
+  margin: 0.2rem 0;
+}
+
+.checkbox input {
+  width: 16px;
+  height: 16px;
+  margin-right: 0.5rem!important;
+  vertical-align: middle;
 }
