@@ -5,6 +5,10 @@ body {
   padding: 2rem;
 }
 
+.nav-item button[aria-selected="true"] {
+  font-weight: bold;
+}
+
 .add-btn-container,
 .remove-btn-container {
   width: 100%;
@@ -12,6 +16,10 @@ body {
   justify-content: flex-end;
   align-items: center;
   margin: 1rem 0;
+}
+
+button i {
+  margin-right: 5px;
 }
 
 .checkbox-list-container {

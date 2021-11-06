@@ -1,13 +1,15 @@
 const activeTabsDiv = document.querySelector('.active-tabs');
 const savedTabsDiv = document.querySelector('.saved-tabs');
 const addButton = document.getElementById('add-btn');
+const removeButton = document.getElementById('remove-btn');
+
+let openTabList = [];
 
 chrome.storage.sync.get("color", ({ color }) => {
   console.log('Inside chrome function')
   initiate();
 });
 
-let openTabList = [];
 
 async function initiate() {
   await chrome.tabs.query({}, function(allTabs) {
@@ -34,7 +36,7 @@ window.onload = function() {
     const tabTitle = localStorage.key(i);
     const url = localStorage[tabTitle];
 
-    savedTabsDiv.innerHTML += `<div class="checkbox">
+    savedTabsDiv.innerHTML += `<div class="checkbox parent-checkbox">
                                     <input type="checkbox" value="">
                                     <span>
                                       <a href="${url}" target="_blank">
@@ -43,7 +45,6 @@ window.onload = function() {
                                     </span>
                                   </div>
                                 `;
-
   }
 }
 
@@ -52,11 +53,9 @@ addButton.addEventListener('click', () => {
   for(let i=0; i<openTabList.length; i++) {
     const checkbox = document.getElementById(`checkbox-${i}`);
     if(checkbox.checked) {
-      console.log(`${i} checked`);
-
       localStorage.setItem(openTabList[i].title, openTabList[i].url);
 
-      savedTabsDiv.innerHTML += `<div class="checkbox">
+      savedTabsDiv.innerHTML += `<div class="checkbox parent-checkbox">
                                     <input type="checkbox" value="">
                                     <span>
                                       <a href="${openTabList[i].url}" target="_blank">
@@ -66,10 +65,38 @@ addButton.addEventListener('click', () => {
                                   </div>
                                 `;
       saveCount++;
+      checkbox.checked = false;
     }
   }
 
   if(saveCount > 0) {
     alert('Saved Successfully!!!');
+  }
+})
+
+removeButton.addEventListener('click', () => {
+  const parentCheckboxList = document.querySelectorAll('.parent-checkbox');
+  const total = parentCheckboxList.length;
+
+  if(total === 0) {
+    alert('No items to remove.');
+  } else {
+    let checkedCount = 0;
+
+    for(let i=0; i<total; i++) {
+      if(parentCheckboxList[i].children[0].checked) {
+        checkedCount++;
+        const title = parentCheckboxList[i].children[1].innerText;
+        console.log(title + 'is checked');
+        localStorage.removeItem(title);
+        parentCheckboxList[i].remove();
+      }
+    }
+
+    if(checkedCount === 0) {
+      alert('Please select at least 1 item.');
+    } else {
+      alert('Removed successfully!!!');
+    }
   }
 })
