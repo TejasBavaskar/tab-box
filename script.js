@@ -99,8 +99,6 @@ removeButton.addEventListener('click', () => {
 
     if(checkedCount === 0) {
       alert('Please select at least 1 item.');
-    } else {
-      alert('Removed successfully!!!');
     }
   }
 })
