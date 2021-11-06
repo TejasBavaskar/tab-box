@@ -6,15 +6,12 @@ const removeButton = document.getElementById('remove-btn');
 let openTabList = [];
 
 chrome.storage.sync.get("color", ({ color }) => {
-  console.log('Inside chrome function')
   initiate();
 });
-
 
 async function initiate() {
   await chrome.tabs.query({}, function(allTabs) {
       openTabList = Array.from(allTabs);
-      console.log('openTabList: ', openTabList);
 
       openTabList.forEach((tab, index) => {
         activeTabsDiv.innerHTML += `<div class="checkbox">
@@ -87,7 +84,6 @@ removeButton.addEventListener('click', () => {
       if(parentCheckboxList[i].children[0].checked) {
         checkedCount++;
         const title = parentCheckboxList[i].children[1].innerText;
-        console.log(title + 'is checked');
         localStorage.removeItem(title);
         parentCheckboxList[i].remove();
       }
